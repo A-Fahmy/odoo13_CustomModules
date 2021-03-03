@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+
+     <record id="action_for_show_users" model="ir.actions.act_window">
+            <field name="name">show Current User</field>
+            <field name="res_model">res.users</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('id','=',context.get('user_id.id'))]</field>
+            <field name="view_id" ref="base.view_users_tree"/>
+            <field name="target">new</field>
+            <field name="binding_model_id" ref="model_res_users_meal" />
+     </record>
+
+
+     <record id="action_meal_res_users" model="ir.actions.act_window">
+            <field name="name">Users</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">res.users</field>
+            <field name="view_mode">tree,form</field>
+<!--            <field name="domain">[('id','=',active_id)]</field>-->
+            <field name="help">Create and manage users that will connect to the system. Users can be deactivated should there be a period of time during which they will/should not connect to the system. You can assign them groups in order to give them specific access to the applications they need to use in the system.</field>
+     </record>
+
+       <record model="ir.ui.view" id="menu_form_view">
+            <field name="name">menuMeal.form</field>
+            <field name="model">res.users.meal</field>
+            <field name="arch" type="xml">
+                   <form string="Menu Form">
+                        <header>
+                            <button name="action_confirm" type="object" string="Confirm" states="draft" class="oe_highlight" />
+                            <button name="action_done" type="object" string="done"  states="confirm" class="oe_highlight"/>
+                            <button name="action_Create_quotation" type="object" string="Create quotation"  class="oe_highlight"/>
+                            <button name="action_print" type="object" string="Print"  class="oe_highlight"/>
+                            <button name="action_delete_one2many" type="object" string="Delete one 2 many"  class="oe_highlight"/>
+                            <button name="action_delete_record" type="object" string="Delete current record"  class="oe_highlight"/>
+                            <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />
+
+                       </header>
+                    <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_get_users_view"  class="oe_stat_button"  icon="fa-file-text-o" type="object">
+                          <field name="user_id_Count_in_model" string="Users object" widget="statinfo" />
+                        </button>
+                        <button name="%(action_meal_res_users)d" icon="fa-arrow-right" type="action"  class="oe_stat_button">
+                            <field name="user_id_Count_in_model" string="Users action" widget="statinfo" />
+                        </button>
+                        <button name="toggle_active" type="object" class="oe_stat_button" icon="fa-archive">
+                            <field name="active" widget="boolean_button" options='{"terminology": "archive"}'/>
+                        </button>
+                         <button name="%(create_users_meal_wizard_action22)d" icon="fa-arrow-right"  type="action"  class="oe_stat_button" >
+                             import items
+                         </button>
+
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name_seq" readonly="1"/>
+                        </h1>
+                    </div>
+                        <group>
+                           <field name="name"/>
+                           <field name="meal_date"/>
+                           <field name="user_id"  options="{'no_create_edit':1, 'no_create':1,'no_open': 1}" />
+                           <field name="gender"/>
+                           <field name="age_user_id"/>
+                           <field name="age_group"/>
+                           <field name="totalcalories"/>
+                           <field name="notes"/>
+                           <field name="larg_Meal"/>
+                           <field name="res_mail_by_userid"/>
+
+
+                        </group>
+                         <notebook>
+                            <page name="Page_Meal_Items"  string="Meal Items">
+                                <field name="item_ids"  widget="one2many_list" >
+                                    <tree string="Menu Items"  editable="botton" >
+<!--                                        <field name="meal_id"/>-->
+                                        <field name="sequence" widget="handle"/>
+                                        <field name="item_id"/>
+                                        <field name="calories"/>
+                                        <field name="servings"/>
+                                        <field name="notes"/>
+                                       <button string="open" type="object"   icon="STOCK_ADD" name="open_one2many_line" context="{'default_active_id': active_id}"
+                                       attrs="{'invisible': [('calories', '=', 0)]}">
+
+                                       </button>
+                                    </tree>
+                                    <form>
+                                        <sheet>
+                                           <group>
+                                             <field name="item_id"/>
+                                             <field name="calories"/>
+                                             <field name="servings"/>
+                                             <field name="notes"/>
+                                          </group>
+                                        </sheet>
+                                    </form>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                  <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers"/>
+                    <field name="activity_ids" widget="mail_activity"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+
+            </field>
+        </record>
+       <record model="ir.ui.view" id="dietfact_meal_menu_treeview">
+                <field name="name">mealmenu.tree</field>
+                <field name="model">res.users.meal</field>
+                <field name="arch" type="xml">
+                    <tree string="Meal Menu" banner_route="/ditefacts/res_meal_onboarding">
+                           <field name="notes_create"/>
+                           <field name="name_seq"/>
+                           <field name="name"/>
+<!--                           <field name="meal_date"/>-->
+                           <field name="meal_date" options="{'datepicker': {'warn_future': true}}" />
+                           <field name="user_id"/>
+                           <field name="age_user_id"/>
+                           <field name="notes"/>
+                           <field name="totalcalories" sum="Total Calories"/>
+                    </tree>
+                </field>
+        </record>
+       <record model="ir.ui.view" id="dietfact_meal_menu_calendar_view">
+            <field name="name">mealmenu.calendar</field>
+            <field name="model">res.users.meal</field>
+            <field name="arch" type="xml">
+                <calendar string="Calendar" date_start="meal_date"  color="name_seq" mode="month"  quick_add="False">
+                     <field name="name_seq"/>
+                    <field name="name"/>
+                </calendar>
+            </field>
+        </record>
+        <record model="ir.ui.view" id="dietfact_session_graph_view">
+            <field name="name">mealmenu.graph</field>
+            <field name="model">res.users.meal</field>
+            <field name="arch" type="xml">
+                <graph string="graph" type="line">
+                    <field name="name"/>
+                    <field name="totalcalories" type="measure"/>
+<!--                    <field name="name" type="col"/>-->
+<!--                    <field name="meal_date" type="row"/>-->
+<!--                    <field name="totalcalories" type="measure"/>-->
+                </graph>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="view_dietfact_meal_menu_kanban">
+            <field name="name">res.users.meal.kanban</field>
+            <field name="model">res.users.meal</field>
+            <field name="arch" type="xml">
+                <kanban >
+                    <field name="color"/>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div
+                                    t-attf-class="oe_kanban_color_{{kanban_getcolor(record.color.raw_value)}}
+                                                  oe_kanban_global_click_edit oe_semantic_html_override
+                                                  oe_kanban_card {{record.group_fancy==1 ? 'oe_kanban_card_fancy' : ''}}">
+                                <div class="oe_dropdown_kanban">
+                                    <!-- dropdown menu -->
+                                    <div class="oe_dropdown_toggle">
+                                        <i class="fa fa-bars fa-lg" title="Manage" aria-label="Manage"/>
+                                        <ul class="oe_dropdown_menu">
+                                            <li>
+                                                <a type="delete">Delete</a>
+                                            </li>
+                                            <li>
+                                                <ul class="oe_kanban_colorpicker"
+                                                    data-field="color"/>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                    <div class="oe_clear"></div>
+                                </div>
+                                <div class="o_kanban_image">
+                                      <img t-att-src="kanban_image('product.template','image_medium')"/>
+                                </div>
+                                <div t-attf-class="oe_kanban_content">
+                                    <!-- title -->
+                                     name:
+                                    <field name="name"/>
+                                    <br/>
+                                    Meal Date:
+                                    <field name="meal_date"/>
+                                    <br/>
+                                    User ID:
+                                    <field name="user_id"/>
+                                    <br/>
+                                    Notes:
+                                    <field name="notes"/>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+
+    <record model="ir.actions.act_window" id="items_list_action">
+        <field name="name">Meals Menu</field>
+        <field name="res_model">res.users.meal</field>
+        <field name="view_mode">tree,kanban,calendar,graph,form</field>
+       <field name="help" type="html">
+                <p class="o_view_nocontent_Create">click to Define new Menu</p>
+       </field>
+    </record>
+
+
+  <record id="action_server_res_meal" model="ir.actions.server">
+        <field name="name">Call Function By Action Server</field>
+        <field name="model_id" ref="ditefacts.model_res_users_meal"/>
+        <field name="state">code</field>
+        <field name="code">action = model._Call_Function_by_server_action()</field>
+    </record>
+
+    <menuitem id="main_ditefacts_menu" name="Dite Facts" web_icon="ditefacts,static/description/icon.png"  />
+    <menuitem id="ditefacts_menu" name="Dite Facts"
+              parent="main_ditefacts_menu"/>
+
+    <menuitem id="items_menu"  parent="ditefacts_menu"
+              action="items_list_action" sequence="2"/>
+    <menuitem id="items_menu_show_in_product"  parent="sale.product_menu_catalog"
+              action="items_list_action" sequence="6"/>
+
+    <menuitem id="menu_res_meal_server_action"  parent="ditefacts_menu"
+              action="action_server_res_meal" sequence="7"/>
+
+
+</odoo>

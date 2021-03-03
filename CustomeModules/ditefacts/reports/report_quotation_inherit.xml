@@ -1,0 +1,11 @@
+<odoo>
+
+      <template id="report_quotation_inherit_view" inherit_id="sale.report_saleorder_document">
+            <xpath expr="//div[@class='row mt32 mb32']" position="after">
+              <div class="col-3 bm-2" id="test_inherit">
+                    <strong>ahmed Fahmy:</strong>
+              </div>
+            </xpath>
+        </template>
+
+</odoo>

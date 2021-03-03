@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <record id="report_wizard_users_meal_date" model="ir.ui.view" >
+            <field name="name">Report users meal by date</field>
+            <field name="model">wizard.users.meal.by.date</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="users meal by date">
+                    <group>
+                        <group>
+                            <field name="date_start"/>
+                        </group>
+                        <group>
+                            <field name="date_end"/>
+                        </group>
+                    </group>
+                    <footer>
+                        <button name="get_report" string="Get Report" type="object" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_report_wizard_users_meal_date" model="ir.actions.act_window">
+                <field name="name">create users meal wizard</field>
+                <field name="res_model">wizard.users.meal.by.date</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+        </record>
+
+<!--            <act_window id="action_report_wizard_users_meal_date"-->
+<!--                name="Report users meal by date"-->
+<!--                res_model="sale.summary.report.wizard"-->
+<!--                view_mode="form"-->
+<!--                target="new"/>-->
+
+        <!--    <menuitem action="action_sale_summary_report_wizard"-->
+        <!--        id="menu_sale_summary_report_wizard"-->
+        <!--        parent="sale.menu_sale_report"/>-->
+
+         <menuitem id="action_sale_summary_report_wizard"
+                          parent="ditefacts_menu"
+                          action="action_report_wizard_users_meal_date"/>
+</odoo>

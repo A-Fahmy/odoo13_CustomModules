@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="ditefact_sale_order_form_view">
+            <field name="name">sale.order</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+
+             <xpath expr="//field[@name='payment_term_id']" position="after">
+                <field name="dietfact_id" readonly="1" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+            </xpath>
+<!--                  <field name="payment_term_id" position="after">-->
+<!--                       <field name="dietfact_id" readonly="1" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}"/>-->
+<!--                  </field>-->
+            </field>
+        </record>
+<!--    // inhirt Action Item  exmple 1-->
+     <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
+            <field name="name">Edit  Quotations By Fahmy </field>
+     </record>
+<!--    // inhirt Menu Item  exmple 1-->
+
+    <record id="sale.menu_sale_quotations" model="ir.ui.menu">
+        <field name="name">Quotations Fahmy</field>
+        <field name="sequence">0</field>
+    </record>
+<!--    // inhirt Menu Item  exmple 2-->
+<!--    <menuitem id="sale.menu_sale_quotations"-->
+<!--                name="Quotations Fahmy"-->
+<!--                action="sale.action_quotations_with_onboarding"-->
+<!--                parent="sale.sale_order_menu"-->
+<!--                sequence="1" groups="sales_team.group_sale_salesman"/>-->
+</odoo>

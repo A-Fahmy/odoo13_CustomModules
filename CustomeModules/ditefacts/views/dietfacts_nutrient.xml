@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <!-- Add instructor field to existing view -->
+         <record model="ir.ui.view" id="nutrient_menu_form_view">
+            <field name="name">product.nutrient.form</field>
+            <field name="model">product.nutrient</field>
+            <field name="arch" type="xml">
+                   <form string="Nutrient">
+                         <header>
+                          <button name="%(create_users_meal_wizard_action)d"  string="Create Users Meal By Wizard"  type="action"  class="oe_highlight"
+                          context="{'default_notes':'Notes Defulte by context'}" />
+                       </header>
+                    <sheet>
+                        <group>
+                           <field name="name"/>
+                           <field name="uom_id"/>
+                           <field name="description"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="product_nutrient_treeview">
+                <field name="name">product.nutrient.tree</field>
+                <field name="model">product.nutrient</field>
+                <field name="arch" type="xml">
+                    <tree string="Nutrient">
+                           <field name="name"/>
+                           <field name="uom_id"/>
+                           <field name="description"/>
+                    </tree>
+                </field>
+        </record>
+        <record model="ir.actions.act_window" id="product_nutrient_action_dietfacts">
+            <field name="name">Nutrient</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">product.nutrient</field>
+            <field name="view_mode">tree,kanban,form</field>
+            <field name="help" type="html">
+                <p class="o_view_nocontent_Create">click to Define new Nutrient
+                </p>
+                  <p>
+                  ffffffffffffffffffffffffffffffffffffffffffffffffff
+                  </p>
+            </field>
+        </record>
+        <menuitem id="menu_product_nutrient_action_dietfacts"
+                      parent="sale.product_menu_catalog"
+                      action="product_nutrient_action_dietfacts"
+                      sequence="6"/>
+
+       <menuitem id="menu_product_nutrient_action_show_in_dietfacts"
+                      parent="ditefacts_menu"
+                      action="product_nutrient_action_dietfacts"/>
+
+</odoo>

@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Default template user for new users signing in -->
+<!--        <record id="template_data_res_users_meal" model="res.users.meal">-->
+<!--            <field name="name">Demo Data</field>-->
+<!--            <field name="age_user_id">30</field>-->
+<!--            <field name="meal_date">02/06/2021 12:11:52</field>-->
+<!--            <field name="user_id" eval="2"/>-->
+<!--&lt;!&ndash;            <field name="user_id.id" eval="[(2, 0, [ref('res.users')])]"/>&ndash;&gt;-->
+<!--        </record>-->
+    </data>
+</odoo>

@@ -1,0 +1,288 @@
+<odoo>
+    <report
+        id="report_res_users_meal"
+        model="res.users.meal"
+        string="Res Users Meal"
+        name="ditefacts.call_report_res_users_meal_view2"
+        file="ditefacts.call_report_res_users_meal_view2"
+        report_type="qweb-pdf" />
+
+        <template id="call_report_res_users_meal_view2">
+            <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                    <t t-set="lang" t-value="o.user_id.lang"/>
+                    <t t-call="ditefacts.report_res_users_meal_view2" t-lang="lang"/>
+                </t>
+            </t>
+        </template>
+
+
+
+         <template id="report_res_users_meal_view2">
+                <t t-call="web.external_layout">
+                <t t-set="o" t-value="o.with_context(lang=lang)" />
+                <t t-set="address">
+                    <address t-field="o.user_id" t-options='{"widget": "contact", "fields": ["login", "name"], "no_marker": True}' />
+<!--                    <div t-if="o.partner_id.vat" class="mt16">-->
+<!--                        <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>-->
+<!--                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>-->
+                </t>
+                <div class="page">
+                    <h2>
+                        <span t-if=" o.state == 'draft'">User Mael Invoice Draft</span>
+                    </h2>
+
+                    <div id="informations" class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2" t-if="o.meal_date" name="meal_date">
+                            <strong>Meal Date:</strong>
+                            <p class="m-0" t-field="o.meal_date"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.state == 'draft'" name="meal_date">
+                            <strong>meal Date Draft :</strong>
+                            <p class="m-0" t-field="o.meal_date"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.notes" name="notes">
+                            <strong>Source:</strong>
+                            <p class="m-0" t-field="o.notes"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.user_id.id" name="user_code">
+                            <strong>User Code:</strong>
+                            <p class="m-0" t-field="o.user_id.id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.color" name="color">
+                            <strong>color:</strong>
+                            <p class="m-0" t-field="o.color"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.totalcalories" name="totalcalories">
+                            <strong>totalcalories:</strong>
+                            <p class="m-0" t-field="o.totalcalories"/>
+                        </div>
+                    </div>
+
+<!--                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>-->
+
+                    <table class="table table-sm o_main_table" name="res_meal_line_table">
+                        <thead>
+                            <tr>
+                                <!-- TODO: remove in master -->
+                                <t t-set="colspan" t-value="6"/>
+                                <th name="th_description" class="text-left"><span>Description</span></th>
+                                <th name="th_notes" class="text-right"><span>Notes</span></th>
+                                <!-- TODO: remove in master -->
+                                <th name="th_servings" class="text-right"><span>Servings</span></th>
+                                <th name="th_calories" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Calories</span></th>
+                                <th name="th_subtotal" class="text-right">
+                                    <span name="th_TotalPrice">Total Price</span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="res_meal_line_tbody">
+                            <t t-set="current_subtotal" t-value="0"/>
+                            <t t-set="Lines" t-value="o.item_ids.sorted(key=lambda l: (-l.item_id.id, l.servings), reverse=True)"/>
+                            <t t-foreach="Lines" t-as="line">
+                                <t t-set="current_subtotal" t-value="current_subtotal + line.servings" />
+                                <t t-set="current_totalprice" t-value="line.calories + line.servings" />
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.calories == '0' else 'font-italic o_line_note' if line.calories != '0' else ''">
+<!--                                <tr t-att-class="'bg-200 font-weight-bold o_line_section'">-->
+                                    <t  name="res_meal_line_accountable">
+                                        <td name="res_meal_line_name"><span t-field="line.item_id.name" t-options="{'widget': 'text'}"/></td>
+                                        <td name="res_meal_line_notes"><span t-field="line.notes" t-options="{'widget': 'text'}"/></td>
+                                        <td class="text-right">  <span t-field="line.servings"/> </td>
+                                        <td class="text-right">  <span t-field="line.calories" /></td>
+                                        <td class="text-right">  <span t-esc="current_totalprice"/></td>
+
+
+                                    </t>
+                                </tr>
+<!--                                 <t >-->
+<!--                                    <tr class="is-subtotal text-right">-->
+<!--                                        <td colspan="99">-->
+<!--                                            <strong class="mr16">Subtotal</strong>-->
+<!--&lt;!&ndash;                                            <span&ndash;&gt;-->
+<!--&lt;!&ndash;                                                t-esc="current_subtotal"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'&ndash;&gt;-->
+<!--&lt;!&ndash;                                            />&ndash;&gt;-->
+<!--                                            <span t-esc="current_subtotal"/>-->
+<!--                                                -->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </t>-->
+                            </t>
+                        </tbody>
+                    </table>
+<!--                    <table class="table table-sm o_main_table" name="res_meal_line_table_userslist">-->
+                    <table class="table table-bordered mb-0" style="border: 2px solid black;">
+                     <t t-foreach="userslist" t-as="app">
+
+                         <tr>
+                              <td >
+                                 <t t-esc="app['id']"/>
+
+                              </td>
+                              <td >
+                                 <t t-esc="app['name']"/>
+                              </td>
+                              <td >
+                                 <t t-esc="app['login']"/>
+                              </td>
+                         </tr>
+                        </t>
+                    </table>
+                     <div class="clearfix">
+                        <div id="total" class="row">
+                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                                <table class="table table-sm" style="page-break-inside: avoid;">
+                                    <tr class="border-black o_subtotal" style="">
+                                        <td><strong>Subtotal</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="current_subtotal"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="border-black o_total">
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-right">
+                                            <span class="text-nowrap" t-esc="current_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p t-if="o.state in ('draft', 'done')">
+                        Please use the following communication for your payment : <b><span t-field="o.name_seq"/></b>
+                    </p>
+                </div>
+               </t>
+        </template>
+
+
+
+     <template id="report_res_users_meal_view">
+           <t t-call="web.html_container">
+                <t t-foreach="docs" t-as="o">
+                                <t t-call="web.external_layout">
+                <t t-set="address">
+                    <address t-field="o.user_id" t-options='{"widget": "contact", "fields": ["login", "name"], "no_marker": True}' />
+<!--                    <div t-if="o.partner_id.vat" class="mt16">-->
+<!--                        <t t-if="o.company_id.country_id.vat_label" t-esc="o.company_id.country_id.vat_label" id="inv_tax_id_label"/>-->
+<!--                        <t t-else="">Tax ID</t>: <span t-field="o.partner_id.vat"/></div>-->
+                </t>
+                <div class="page">
+                    <h2>
+                        <span t-if=" o.state == 'draft'">User Mael Invoice Draft</span>
+                    </h2>
+
+                    <div id="informations" class="row mt32 mb32">
+                        <div class="col-auto mw-100 mb-2" t-if="o.meal_date" name="meal_date">
+                            <strong>Meal Date:</strong>
+                            <p class="m-0" t-field="o.meal_date"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.state == 'draft'" name="meal_date">
+                            <strong>meal Date Draft :</strong>
+                            <p class="m-0" t-field="o.meal_date"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.notes" name="notes">
+                            <strong>Source:</strong>
+                            <p class="m-0" t-field="o.notes"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.user_id.id" name="user_code">
+                            <strong>User Code:</strong>
+                            <p class="m-0" t-field="o.user_id.id"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.color" name="color">
+                            <strong>color:</strong>
+                            <p class="m-0" t-field="o.color"/>
+                        </div>
+                        <div class="col-auto mw-100 mb-2" t-if="o.totalcalories" name="totalcalories">
+                            <strong>totalcalories:</strong>
+                            <p class="m-0" t-field="o.totalcalories"/>
+                        </div>
+                    </div>
+
+<!--                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>-->
+
+                    <table class="table table-sm o_main_table" name="res_meal_line_table">
+                        <thead>
+                            <tr>
+                                <!-- TODO: remove in master -->
+                                <t t-set="colspan" t-value="6"/>
+                                <th name="th_description" class="text-left"><span>Description</span></th>
+                                <th name="th_notes" class="text-right"><span>Notes</span></th>
+                                <!-- TODO: remove in master -->
+                                <th name="th_servings" class="text-right"><span>Servings</span></th>
+                                <th name="th_calories" t-attf-class="text-right {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}"><span>Calories</span></th>
+                                <th name="th_subtotal" class="text-right">
+                                    <span name="th_TotalPrice">Total Price</span>
+                                </th>
+
+                            </tr>
+                        </thead>
+                        <tbody class="res_meal_line_tbody">
+                            <t t-set="current_subtotal" t-value="0"/>
+                            <t t-set="Lines" t-value="o.item_ids.sorted(key=lambda l: (-l.item_id.id, l.servings), reverse=True)"/>
+                            <t t-foreach="Lines" t-as="line">
+                                <t t-set="current_subtotal" t-value="current_subtotal + line.servings" />
+                                <t t-set="current_totalprice" t-value="line.calories + line.servings" />
+                                <tr t-att-class="'bg-200 font-weight-bold o_line_section' if line.calories == '0' else 'font-italic o_line_note' if line.calories != '0' else ''">
+<!--                                <tr t-att-class="'bg-200 font-weight-bold o_line_section'">-->
+                                    <t  name="res_meal_line_accountable">
+                                        <td name="res_meal_line_name"><span t-field="line.item_id.name" t-options="{'widget': 'text'}"/></td>
+                                        <td name="res_meal_line_notes"><span t-field="line.notes" t-options="{'widget': 'text'}"/></td>
+                                        <td class="text-right">  <span t-field="line.servings"/> </td>
+                                        <td class="text-right">  <span t-field="line.calories" /></td>
+                                        <td class="text-right">  <span t-esc="current_totalprice"/></td>
+
+
+                                    </t>
+                                </tr>
+<!--                                 <t >-->
+<!--                                    <tr class="is-subtotal text-right">-->
+<!--                                        <td colspan="99">-->
+<!--                                            <strong class="mr16">Subtotal</strong>-->
+<!--&lt;!&ndash;                                            <span&ndash;&gt;-->
+<!--&lt;!&ndash;                                                t-esc="current_subtotal"&ndash;&gt;-->
+<!--&lt;!&ndash;                                                t-options='{"widget": "monetary", "display_currency": o.currency_id}'&ndash;&gt;-->
+<!--&lt;!&ndash;                                            />&ndash;&gt;-->
+<!--                                            <span t-esc="current_subtotal"/>-->
+<!--                                                -->
+<!--                                        </td>-->
+<!--                                    </tr>-->
+<!--                                </t>-->
+                            </t>
+                        </tbody>
+                    </table>
+                     <div class="clearfix">
+                        <div id="total" class="row">
+                            <div t-attf-class="#{'col-6' if report_type != 'html' else 'col-sm-7 col-md-6'} ml-auto">
+                                <table class="table table-sm" style="page-break-inside: avoid;">
+                                    <tr class="border-black o_subtotal" style="">
+                                        <td><strong>Subtotal</strong></td>
+                                        <td class="text-right">
+                                            <span t-esc="current_subtotal"/>
+                                        </td>
+                                    </tr>
+
+                                    <tr class="border-black o_total">
+                                        <td><strong>Total</strong></td>
+                                        <td class="text-right">
+                                            <span class="text-nowrap" t-esc="current_subtotal"/>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <p t-if="o.state in ('draft', 'done')">
+                        Please use the following communication for your payment : <b><span t-field="o.name_seq"/></b>
+                    </p>
+                </div>
+               </t>
+            </t>
+         </t>
+        </template>
+
+</odoo>
