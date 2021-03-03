@@ -14,7 +14,7 @@ class upload_product_for_users_meal_wizard(models.TransientModel):
         return res
 
     def action_upload_done(self):
-        print('ahmed fahmy ahmed')
+        print('ahmed fahmy')
         # action_vals = {
         #     'name': _('users'),
         #     # 'domain': [('id', 'in', payments.ids), ('state', '=', 'posted')],

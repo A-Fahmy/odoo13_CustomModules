@@ -158,6 +158,7 @@ class dietfacts_res_users_meal(models.Model):
             }
 
     def action_done(self):
+         print('fahmy')
          for rec in self:
              rec.state="done"
 
@@ -202,6 +203,7 @@ class dietfacts_res_users_meal(models.Model):
         return record_id
 
     def action_print(self):
+        print('fahmy')
         return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
 
 
