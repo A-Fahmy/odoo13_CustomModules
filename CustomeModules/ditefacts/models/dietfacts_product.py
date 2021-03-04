@@ -158,8 +158,8 @@ class dietfacts_res_users_meal(models.Model):
             }
 
     def action_done(self):
-         print('fahmy')
          for rec in self:
+             print('fahmy')
              rec.state="done"
 
     def action_delete_record(self):
@@ -174,6 +174,7 @@ class dietfacts_res_users_meal(models.Model):
              'view_mode': 'tree,form',
              'type': 'ir.actions.act_window',
          }
+         print('xxxx')
          return action_vals
 
 
