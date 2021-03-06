@@ -400,15 +400,6 @@ class dietfacts_res_users_meal(models.Model):
         }
         return action_vals
 
-
-
-
-
-
-
-
-
-
     @api.depends('item_ids', 'item_ids.servings')
     def _calccalories(self):
         for facts in self:
@@ -446,6 +437,13 @@ class dietfacts_res_users_meal(models.Model):
     #     vals['notes']='Mazen'
     #     res = super(dietfacts_res_users_meal, self)._write(vals)
     #     return res
+
+    def call_action_from_api(self,vals):
+        # print(vals['name'])
+
+        get_docs=vals['docs']
+        print(get_docs.name)
+        print(' the  call action from api after create')
 
 
 

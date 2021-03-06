@@ -1,0 +1,26 @@
+<odoo>
+    <template id="desing_controller_res_meal" name="res meal">
+        <t t-call="website.layout">
+           <div class="article mt0 o_report_layout_standard">
+                <table class="table table-condensed table-bordered">
+                    <thead>
+                        <th style="width: 65%">Meal Name</th>
+                        <th class="text-center" style="width: 15%">Meals Date</th>
+                        <th class="text-center" style="width: 20%">Meal User</th>
+                    </thead>
+                    <tbody>
+                        <t t-foreach="docs" t-as="doc">
+                            <tr>
+                                <td><span t-esc="doc.name"/></td>
+                                <td class="text-center"><span t-esc="doc.meal_date"/></td>
+                                <td class="text-center">
+                                    <span t-esc="doc.user_id.name" />
+                                </td>
+                            </tr>
+                        </t>
+                    </tbody>
+                </table>
+            </div>
+        </t>
+    </template>
+</odoo>

@@ -40,8 +40,13 @@
         'wizards/report_users_meal_bydate.xml',
         'reports/Desing_report_users_meal_bydate.xml',
         'views/dietfacts_nutrient.xml',
+        'views/view_controller_res_meal.xml',
+        'views/create_res_meal_controller_byCode.xml',
         'reports/report_res_users_meal.xml',
         'reports/report_quotation_inherit.xml',
+
+
+
 
 
     ],

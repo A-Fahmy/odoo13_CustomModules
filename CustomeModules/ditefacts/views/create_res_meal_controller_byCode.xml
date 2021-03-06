@@ -1,0 +1,65 @@
+<odoo>
+        <record id="menu_res_meals_controller__form" model="website.menu">
+            <field name="name"> Res Meals By Code</field>
+            <field name="url">/Ditefacts/Res_Meals/form</field>
+            <field name="parent_id" ref="website.main_menu"/>
+            <field name="sequence" type="int">22</field>
+        </record>
+        <template id="tmp_res_meal_form" name="Res Meals Form">
+            <t t-call="website.layout">
+                <div id="wrap">
+                    <div class="container">
+                        <div class="col-md-12">
+                            <form action="/Ditefacts/Res_Meals/form/submit">
+                                <div class="form-group">
+                                    <label for="name">Meal Name:</label>
+                                    <input type="text" class="form-control" name="name" t-att-value='name' id="name" required="true" />
+                                </div>
+                                <div class="form-group">
+                                    <label for="meal_date">meal date:</label>
+                                    <input type="date" class="form-control" name="meal_date" t-att-value='meal_date' id="meal_date" required="true" />
+                                </div>
+
+                               <div class="form-group">
+                                   <label for="user_id">Meal User:</label>
+                                   <select name="user_id" class="form-control link-style">
+                                        <t t-foreach='Doc_res_users' t-as='doc_user'>
+<!--                                            <option t-esc='doc_user.name' t-att-selected="nb == 1 and 'selected'"/>-->
+                                             <option t-esc='doc_user.name' t-att-value='doc_user.id'/>
+                                        </t>
+                                   </select>
+
+                               </div>
+
+
+
+
+                                <div class="form-group">
+                                    <label for="notes">notes:</label>
+                                    <input type="text" class="form-control" name="notes" t-att-value='notes'  id="notes" required="true" />
+                                </div>
+                                <button type="submit" class="btn btn-primary">Create</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+          </t>
+    </template>
+    <template id="tmp_res_meals_form_success" name="Res Meals Form Successfully Submitted">
+        <t t-call="website.layout">
+            <div id="wrap">
+                <div class="container">
+                     <t t-foreach="docs" t-as="doc">
+                        <div class="col-md-12">
+                            <div class="alert alert-success">
+                                Customer created successfully.
+                                 <span t-esc="doc.name"/>
+                            </div>
+                        </div>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+</odoo>
