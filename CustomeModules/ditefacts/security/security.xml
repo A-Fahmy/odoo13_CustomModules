@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+   <record model="ir.module.category" id="module_category_DiteFacts">
+       <field name="name">Dite Facts Managment</field>
+       <field name="description">Category For Dite Facts </field>
+       <field name="sequence">45</field>
+   </record>
+   <record id="group_ditefacts_manager" model="res.groups">
+       <field name="name">Manager</field>
+       <field name="category_id" ref="module_category_DiteFacts"/>
+   </record>
+    <record id="group_ditefacts_user" model="res.groups">
+       <field name="name">User</field>
+       <field name="category_id" ref="module_category_DiteFacts"/>
+<!--        // if create drop down list for show all groups  mustbe the code-->
+        <field name="implied_ids" eval="[(4, ref('ditefacts.group_ditefacts_manager'))]"/>
+   </record>
+
+<!-- id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink-->
+<!--ditefacts_meal_user,dietfacts users meal,model_res_users_meal,base.group_user,1,1,1,1-->
+<!--ditefacts_mealitem_user,dietfacts users meal item,model_res_users_mealitem,base.group_user,1,1,1,1-->
+<!--ditefacts_product_nutrient,dietfacts product nutrient,model_product_nutrient,base.group_user,1,1,1,1-->
+<!--ditefacts_product_template_nutrient,dietfacts product template nutrient,model_product_template_nutrient,base.group_user,1,1,1,1-->
+
+</odoo>

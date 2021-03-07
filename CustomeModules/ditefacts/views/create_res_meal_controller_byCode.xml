@@ -28,12 +28,7 @@
                                              <option t-esc='doc_user.name' t-att-value='doc_user.id'/>
                                         </t>
                                    </select>
-
                                </div>
-
-
-
-
                                 <div class="form-group">
                                     <label for="notes">notes:</label>
                                     <input type="text" class="form-control" name="notes" t-att-value='notes'  id="notes" required="true" />

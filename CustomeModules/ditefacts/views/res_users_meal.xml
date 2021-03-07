@@ -25,6 +25,7 @@
        <record model="ir.ui.view" id="menu_form_view">
             <field name="name">menuMeal.form</field>
             <field name="model">res.users.meal</field>
+<!--           <field name="groups_id" eval="[(4, ref('ditefacts.group_ditefacts_user'))]"/>-->
             <field name="arch" type="xml">
                    <form string="Menu Form">
                         <header>
@@ -66,7 +67,7 @@
                            <field name="age_user_id"/>
                            <field name="age_group"/>
                            <field name="totalcalories"/>
-                           <field name="notes"/>
+                           <field name="notes" groups="ditefacts.group_ditefacts_manager" />
                            <field name="larg_Meal"/>
                            <field name="res_mail_by_userid"/>
 

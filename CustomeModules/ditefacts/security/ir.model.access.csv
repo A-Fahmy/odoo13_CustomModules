@@ -1,7 +1,12 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
-ditefacts_meal_user,dietfacts users meal,model_res_users_meal,base.group_user,1,1,1,1
-ditefacts_mealitem_user,dietfacts users meal item,model_res_users_mealitem,base.group_user,1,1,1,1
-ditefacts_product_nutrient,dietfacts product nutrient,model_product_nutrient,base.group_user,1,1,1,1
+ditefacts_meal_user,dietfacts users meal,model_res_users_meal,ditefacts.group_ditefacts_manager,1,1,1,1
+ditefacts_mealitem_user,dietfacts users meal item,model_res_users_mealitem,ditefacts.group_ditefacts_manager,1,1,1,1
+ditefacts_product_nutrient,dietfacts product nutrient,model_product_nutrient,ditefacts.group_ditefacts_manager,1,1,1,1
+ditefacts_product_template_nutrient,dietfacts product template nutrient,model_product_template_nutrient,ditefacts.group_ditefacts_manager,1,1,1,1
+
+
+
+
 
 
 

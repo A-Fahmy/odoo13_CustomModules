@@ -1,12 +1,25 @@
 from odoo import http
 from odoo.http import request
+from odoo.addons.website_sale.controllers.main import WebsiteSale
+
+class WebsiteSale_inherits(WebsiteSale):
+    @http.route([
+        '''/shop''',
+        '''/shop/page/<int:page>''',
+        '''/shop/category/<model("product.public.category"):category>''',
+        '''/shop/category/<model("product.public.category"):category>/page/<int:page>'''
+    ], type='http', auth="public", website=True)
+    def shop(self, page=0, category=None, search='', ppg=False, **post):
+        res=super(WebsiteSale_inherits, self).shop(page=0, category=None, search='', ppg=False, **post)
+        print('ahmed Fahmy shop',res)
+        return res
 
 class Ditefacts_Res_Meals(http.Controller):
 
-    @http.route('/Ditefacts/Res_Meals/', website=True, auth='public')
+    @http.route('/Ditefacts/Res_Meals/', website=True, type='http', auth='public')
     def Get_All_Res_Meals(self, **kw):
         Get_Res_Meals=request.env['res.users.meal'].sudo().search([])
-
+        print('Get_All_Res_Meals ')
         return request.render('ditefacts.desing_controller_res_meal', {
             'docs': Get_Res_Meals
         })
