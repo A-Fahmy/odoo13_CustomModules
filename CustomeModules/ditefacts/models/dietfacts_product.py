@@ -277,6 +277,10 @@ class dietfacts_res_users_meal(models.Model):
     # meal_date = fields.Datetime(string="Meal Date", groups="base.group_no_one")  // show field only in developer mode
     meal_date = fields.Datetime(string="Meal Date")
     user_id = fields.Many2one('res.users', string="Meal User", required=True)
+    user_ids = fields.Many2many('res.users', string="Meal Users")
+    # // Create Field Many2many with Determine the name Tables and Fields Name Relations
+    # user_ids = fields.Many2many('res.users','res_Meal_Res_User_rel','field_meal_id','field_user_id', string="Meal Users")
+
     notes = fields.Text('notes',default=_set_defult_notes)
     item_ids = fields.One2many('res.users.mealitem', 'meal_id', string="meal item")
     color = fields.Integer()
@@ -316,6 +320,7 @@ class dietfacts_res_users_meal(models.Model):
     def _res_mail_by_userid(self):
         for rec in self:
             vals_items =[(5, 0, 0)]
+            # vals_items = [] // For Append in field one2many
             if rec.res_mail_by_userid:
                 get_meal_items = self.env['res.users.mealitem'].search([('meal_id', '=', rec.res_mail_by_userid.id)])
                 # get_meal_items = self.env['res.users.mealitem'].browse(get_meal_itemstest.ids)

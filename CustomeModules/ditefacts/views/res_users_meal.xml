@@ -63,6 +63,8 @@
                            <field name="name"/>
                            <field name="meal_date"/>
                            <field name="user_id"  options="{'no_create_edit':1, 'no_create':1,'no_open': 1}" />
+                           <field name="user_ids" widget="many2many_tags"  optional="show" />
+
                            <field name="gender"/>
                            <field name="age_user_id"/>
                            <field name="age_group"/>
@@ -80,7 +82,7 @@
 <!--                                        <field name="meal_id"/>-->
                                         <field name="sequence" widget="handle"/>
                                         <field name="item_id"/>
-                                        <field name="calories"/>
+                                        <field name="calories" force_save="1"/>
                                         <field name="servings"/>
                                         <field name="notes"/>
                                        <button string="open" type="object"   icon="STOCK_ADD" name="open_one2many_line" context="{'default_active_id': active_id}"
