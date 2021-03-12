@@ -16,6 +16,21 @@
         <field name="implied_ids" eval="[(4, ref('ditefacts.group_ditefacts_manager'))]"/>
    </record>
 
+      <record id="res_meal_multi_company" model="ir.rule">
+            <field name="name">rule res meal multi company</field>
+            <field name="model_id" ref="model_res_users_meal"/>
+<!--            <field name="groups" eval="[(4, ref('openacademy.group_manager'))]"/>-->
+<!--            <field name="perm_read" eval="0"/>-->
+<!--            <field name="perm_write" eval="1"/>-->
+<!--            <field name="perm_create" eval="0"/>-->
+<!--            <field name="perm_unlink" eval="1"/>-->
+            <field name="global" eval="True"/>
+            <field name="domain_force">
+                     ['|', ('company_id','=',False),
+                      ('company_id', 'child_of', [user.company_id.id])]
+            </field>
+        </record>
+
 <!-- id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink-->
 <!--ditefacts_meal_user,dietfacts users meal,model_res_users_meal,base.group_user,1,1,1,1-->
 <!--ditefacts_mealitem_user,dietfacts users meal item,model_res_users_mealitem,base.group_user,1,1,1,1-->

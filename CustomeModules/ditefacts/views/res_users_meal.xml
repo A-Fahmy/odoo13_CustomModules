@@ -64,7 +64,6 @@
                            <field name="meal_date"/>
                            <field name="user_id"  options="{'no_create_edit':1, 'no_create':1,'no_open': 1}" />
                            <field name="user_ids" widget="many2many_tags"  optional="show" />
-
                            <field name="gender"/>
                            <field name="age_user_id"/>
                            <field name="age_group"/>
@@ -72,8 +71,8 @@
                            <field name="notes" groups="ditefacts.group_ditefacts_manager" />
                            <field name="larg_Meal"/>
                            <field name="res_mail_by_userid"/>
-
-
+<!--                           <field name="company_id" groups="base.group_multi_company"/>-->
+                           <field name="company_id"/>
                         </group>
                          <notebook>
                             <page name="Page_Meal_Items"  string="Meal Items">
@@ -123,7 +122,7 @@
                            <field name="name"/>
 <!--                           <field name="meal_date"/>-->
                            <field name="meal_date" options="{'datepicker': {'warn_future': true}}" />
-                           <field name="user_id"/>
+                           <field name="user_id" widget="many2onebutton"/>
                            <field name="age_user_id"/>
                            <field name="notes"/>
                            <field name="totalcalories" sum="Total Calories"/>

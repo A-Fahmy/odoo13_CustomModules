@@ -7,7 +7,6 @@
             <field name="model">sale.order</field>
             <field name="inherit_id" ref="sale.view_order_form"/>
             <field name="arch" type="xml">
-
              <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="dietfact_id" readonly="1" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
             </xpath>
@@ -16,6 +15,23 @@
 <!--                  </field>-->
             </field>
         </record>
+<!--    //  exmple hide multi field by group by-->
+<!--        <record model="ir.ui.view" id="ditefact_hideField_BYGroup_form_view">-->
+<!--            <field name="name">sale.order</field>-->
+<!--            <field name="model">sale.order</field>-->
+<!--            <field name="inherit_id" ref="sale.view_order_form"/>-->
+<!--            <field name="groups_id" eval="[(4, ref('ditefacts.group_ditefacts_manager'))]"/>-->
+<!--            <field name="arch" type="xml">-->
+<!--             <xpath expr="//field[@name='dietfact_id']" position="attributes">-->
+<!--                     <attribute name="invisible">1</attribute>-->
+<!--             </xpath>-->
+<!--            </field>-->
+<!--        </record>-->
+
+
+
+
+
 <!--    // inhirt Action Item  exmple 1-->
      <record id="sale.action_quotations_with_onboarding" model="ir.actions.act_window">
             <field name="name">Edit  Quotations By Fahmy </field>

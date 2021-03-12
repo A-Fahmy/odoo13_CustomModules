@@ -308,6 +308,7 @@ class dietfacts_res_users_meal(models.Model):
                              default='draft')
     active = fields.Boolean('Active', default=True)
     res_mail_by_userid= fields.Many2one('res.users.meal', string="Res Mail by Userid")
+    company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.user.company_id)
 
     @api.onchange('user_id')
     def _onchange_user_id(self):

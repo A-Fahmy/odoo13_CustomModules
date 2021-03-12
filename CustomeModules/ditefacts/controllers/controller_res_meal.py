@@ -16,7 +16,7 @@ class WebsiteSale_inherits(WebsiteSale):
 
 class Ditefacts_Res_Meals(http.Controller):
 
-    @http.route('/Ditefacts/Res_Meals/', website=True, type='http', auth='public')
+    @http.route('/Ditefacts/Res_Meals/',  type='http', methods=['POST'], website=True, csrf=False, auth='public')
     def Get_All_Res_Meals(self, **kw):
         Get_Res_Meals=request.env['res.users.meal'].sudo().search([])
         print('Get_All_Res_Meals ')
