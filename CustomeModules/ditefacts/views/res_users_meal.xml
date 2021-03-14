@@ -29,6 +29,7 @@
             <field name="arch" type="xml">
                    <form string="Menu Form">
                         <header>
+                            <button name="action_send_card" type="object"  string="Send By Email" class="oe_highlight"/>
                             <button name="action_confirm" type="object" string="Confirm" states="draft" class="oe_highlight" />
                             <button name="action_done" type="object" string="done"  states="confirm" class="oe_highlight"/>
                             <button name="action_Create_quotation" type="object" string="Create quotation"  class="oe_highlight"/>
@@ -71,6 +72,7 @@
                            <field name="notes" groups="ditefacts.group_ditefacts_manager" />
                            <field name="larg_Meal"/>
                            <field name="res_mail_by_userid"/>
+                           <field name="email_id"/>
 <!--                           <field name="company_id" groups="base.group_multi_company"/>-->
                            <field name="company_id"/>
                         </group>

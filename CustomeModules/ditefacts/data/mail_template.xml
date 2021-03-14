@@ -1,0 +1,33 @@
+<?xml version="1.0" ?>
+<odoo>
+
+    <!--Creating Email Template in Odoo-->
+    <!-- https://www.youtube.com/watch?v=rGfGHRS3iWw&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=43  -->
+    <!-- https://www.youtube.com/watch?v=CZVRmtv6re0&list=PLqRRLx0cl0hoJhjFWkFYowveq2Zn55dhM&index=44  -->
+    <data noupdate="1">
+        <record id="res_meal_card_email_template" model="mail.template">
+            <field name="name">Res Meal Card: Send by email</field>
+            <field name="model_id" ref="ditefacts.model_res_users_meal"/>
+            <field name="email_from">${object.user_id.email_formatted |safe}</field>
+            <field name="email_to">${object.email_id}</field>
+            <field name="subject">Res Meal Card (Ref ${object.name_seq})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.name}
+                        <br /><br />
+                        Here is your Meals card with reference ${object.name_seq}
+                        <br /><br />
+                        Age : ${object.age_user_id}
+                        notes  : ${object.notes}
+                        <br /><br />
+                        If you have queries feel free to ask.
+                    </p>
+                </div>
+            </field>
+            <field name="report_template" ref="report_res_users_meal"/>
+            <field name="report_name">Res Meal Card_${(object.name_seq)}</field>
+        </record>
+    </data>
+
+</odoo>

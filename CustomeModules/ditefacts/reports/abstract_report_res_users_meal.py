@@ -24,8 +24,6 @@ class res_users_meal_Report(models.AbstractModel):
             }
             userslist.append(vals)
         print(userslist)
-
-
         return {
             'doc_ids': self.ids,
             'doc_model': 'res.users.meal',

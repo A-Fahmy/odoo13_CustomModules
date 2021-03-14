@@ -203,11 +203,14 @@ class dietfacts_res_users_meal(models.Model):
 
         return record_id
 
+
     def action_print(self):
-        print('fahmy')
         return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
 
 
+    def action_printxml(self):
+        print('ahmed fahmy')
+        return True
 
     def action_Create_quotation(self):
 
@@ -309,6 +312,7 @@ class dietfacts_res_users_meal(models.Model):
     active = fields.Boolean('Active', default=True)
     res_mail_by_userid= fields.Many2one('res.users.meal', string="Res Mail by Userid")
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.user.company_id)
+    email_id = fields.Char(string="Email")
 
     @api.onchange('user_id')
     def _onchange_user_id(self):
@@ -382,6 +386,7 @@ class dietfacts_res_users_meal(models.Model):
 
     @api.model
     def _cron_job_action_test_ditemeal(self):
+        print('xxxxxx')
         # ''' This method is called from a cron job.
         # It is used to post entries such as those created by the module
         # account_asset.
@@ -427,7 +432,6 @@ class dietfacts_res_users_meal(models.Model):
             elif r.totalcalories > 100:
                 r.larg_Meal = True
 
-
     # // override function Create
     @api.model
     def create(self, vals):
@@ -451,6 +455,11 @@ class dietfacts_res_users_meal(models.Model):
         print(get_docs.name)
         print(' the  call action from api after create')
 
+    def action_send_card(self):
+        # sending the patient report to patient via email
+        template_id = self.env.ref('ditefacts.res_meal_card_email_template').id
+        template = self.env['mail.template'].browse(template_id)
+        template.send_mail(self.id, force_send=True)
 
 
 
@@ -491,6 +500,4 @@ class dietfacts_product_template_nutrient(models.Model):
     value = fields.Float(string="Value")
     dailypercentage = fields.Float(string="Daily Percentage")
     # unitofmeasure = fields.Integer(related='nutrient_id.uom.id.name', string='Unit Of Measure',  readonly=True)
-
-
 

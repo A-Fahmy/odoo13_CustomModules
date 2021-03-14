@@ -37,6 +37,7 @@
         'wizards/upload_product_for_users_meal.xml',
         'views/res_users_meal.xml',
         'views/dietfacts_product.xml',
+        'data/mail_template.xml',
         'wizards/create_users_meal.xml',
         'wizards/report_users_meal_bydate.xml',
         'reports/Desing_report_users_meal_bydate.xml',

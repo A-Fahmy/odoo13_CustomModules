@@ -6,6 +6,12 @@
                     <strong>ahmed Fahmy:</strong>
               </div>
             </xpath>
+<!--           <xpath expr="//div[@class='row mt32 mb32']" position="replace">-->
+<!--                <div></div>-->
+<!--           </xpath>-->
+           <xpath expr="//div[@class='row mt32 mb32']" position="attributes">
+                 <attribute name="class">hidden</attribute>
+           </xpath>
         </template>
 
 </odoo>

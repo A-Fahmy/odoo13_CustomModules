@@ -53,8 +53,10 @@ class Ditefacts_Res_Meals(http.Controller):
         vals = {
             'docs': requst_Res_Meals,
         }
+        # // Exmple Call My Function  call_action_from_api in python
         request.env['res.users.meal'].call_action_from_api(vals)
         return request.render("ditefacts.tmp_res_meals_form_success", vals)
+
 
 
 
