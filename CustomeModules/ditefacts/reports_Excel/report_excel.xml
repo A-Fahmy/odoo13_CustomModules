@@ -1,0 +1,9 @@
+<odoo>
+    <report
+        id="report_res_users_meal_excel"
+        model="res.users.meal"
+        string="Res Users Meal Excel"
+        name="ditefacts.call_report_res_users_meal_excel"
+        file="ditefacts.call_report_res_users_meal_excel"
+        report_type="xlsx" />
+</odoo>

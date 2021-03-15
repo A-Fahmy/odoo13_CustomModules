@@ -58,3 +58,35 @@ class DiteFact_ORM(http.Controller):
         data = {'status': 200, 'response': meals, 'message': 'Done All Melas Returned'}
         return data
 
+    # this is code call function by send json in postman
+    # {
+    #     "jsonrpc": "2.0",
+    #     "params":
+    #         {
+    #             "id": "129",
+    #             "name": "DB_Open_Academy ahmed",
+    #             "notes": "admin"
+    #         }
+    # }
+    @http.route('/get_Meals_by_Parametrs', type='json', auth='user')
+    def get_Meals_by_Parametrs(self, id, name, notes):
+        print(id)
+        record = request.env['res.users.meal'].sudo().search([('id', '=', id)])
+        meals = []
+        for rec in record:
+            vals = {
+                'id': rec.id,
+                'name': rec.name,
+                'meal_date': rec.meal_date,
+                'sequence': rec.name_seq,
+            }
+            meals.append(vals)
+        print("Meals List--->", meals)
+        data = {'status': 200, 'response': meals, 'message': 'Done All Melas Returned'}
+        return data
+
+
+
+
+
+

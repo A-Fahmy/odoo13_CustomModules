@@ -207,6 +207,9 @@ class dietfacts_res_users_meal(models.Model):
     def action_print(self):
         return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
 
+    def action_print_excel(self):
+        return self.env.ref('ditefacts.report_res_users_meal_excel').report_action(self)
+
 
     def action_printxml(self):
         print('ahmed fahmy')

@@ -34,6 +34,7 @@
                             <button name="action_done" type="object" string="done"  states="confirm" class="oe_highlight"/>
                             <button name="action_Create_quotation" type="object" string="Create quotation"  class="oe_highlight"/>
                             <button name="action_print" type="object" string="Print"  class="oe_highlight"/>
+                            <button name="action_print_excel" type="object" string="Print Excel"  class="oe_highlight"/>
                             <button name="action_delete_one2many" type="object" string="Delete one 2 many"  class="oe_highlight"/>
                             <button name="action_delete_record" type="object" string="Delete current record"  class="oe_highlight"/>
                             <field name="state" widget="statusbar" statusbar_visible="draft,confirm,done" />

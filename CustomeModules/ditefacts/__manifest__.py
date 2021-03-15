@@ -46,10 +46,7 @@
         'views/create_res_meal_controller_byCode.xml',
         'reports/report_res_users_meal.xml',
         'reports/report_quotation_inherit.xml',
-
-
-
-
+        'reports_Excel/report_excel.xml',
 
     ],
     # only loaded in demonstration mode
