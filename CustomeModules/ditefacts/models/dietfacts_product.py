@@ -205,6 +205,7 @@ class dietfacts_res_users_meal(models.Model):
 
 
     def action_print(self):
+        self._update_cron()
         return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
 
     def action_print_excel(self):
@@ -287,7 +288,7 @@ class dietfacts_res_users_meal(models.Model):
     # // Create Field Many2many with Determine the name Tables and Fields Name Relations
     # user_ids = fields.Many2many('res.users','res_Meal_Res_User_rel','field_meal_id','field_user_id', string="Meal Users")
 
-    notes = fields.Text('notes',default=_set_defult_notes)
+    notes = fields.Text('notes',default=_set_defult_notes,)
     item_ids = fields.One2many('res.users.mealitem', 'meal_id', string="meal item")
     color = fields.Integer()
     totalcalories = fields.Integer(string="Total Meal Calories", Store=True,  compute='_calccalories')
@@ -315,7 +316,7 @@ class dietfacts_res_users_meal(models.Model):
     active = fields.Boolean('Active', default=True)
     res_mail_by_userid= fields.Many2one('res.users.meal', string="Res Mail by Userid")
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.user.company_id)
-    email_id = fields.Char(string="Email")
+    email_id = fields.Char(string="Email",copy=False)
 
     @api.onchange('user_id')
     def _onchange_user_id(self):
@@ -388,6 +389,19 @@ class dietfacts_res_users_meal(models.Model):
         return action_vals
 
     @api.model
+    def _update_cron(self):
+        try:
+            # Enabled/Disable cron based on the number of 'done' server of type pop or imap
+
+            # cron = self.env.ref('base_automation.ir_cron_data_base_automation_check', raise_if_not_found=False)
+            # return cron and cron.toggle(model=self._name, domain=[('trigger', '=', 'on_time')])
+
+            cron = self.env.ref('ditefacts.Cron_action_test_ditemeal',raise_if_not_found=False)
+            # cron.toggle()
+        except ValueError:
+            pass
+
+    @api.model
     def _cron_job_action_test_ditemeal(self):
         print('xxxxxx')
         # ''' This method is called from a cron job.
@@ -443,13 +457,32 @@ class dietfacts_res_users_meal(models.Model):
         vals['notes_create']='Fahmy Fahmy'
 
         result = super(dietfacts_res_users_meal, self).create(vals)
+        result.notes='Mazen'
+        print(result)
         return result
 
     # // override function write
-    # def write(self, vals):
-    #     vals['notes']='Mazen'
-    #     res = super(dietfacts_res_users_meal, self)._write(vals)
-    #     return res
+    def write(self, vals):
+        # vals['notes']='Mazen'
+        res = super(dietfacts_res_users_meal, self)._write(vals)
+        print(res)
+        return res
+
+    def copy(self, default = {}):
+        #default['active'] = False
+        default['name'] = "copy ("+self.name+")"
+        rtn = super(dietfacts_res_users_meal, self).copy(default=default)
+        rtn.total_fees = 500
+        return rtn
+
+    # def unlink(self):
+    #     print("self statement ",self)
+    #     # for stud in self:
+    #     #     if stud.total_fees > 0:
+    #     #         raise UserError(_("You can't delete this %s student profile"%stud.name))
+    #     rtn = super(dietfacts_res_users_meal, self).unlink()
+    #     print("Return statement ",rtn)
+    #     return rtn
 
     def call_action_from_api(self,vals):
         # print(vals['name'])
