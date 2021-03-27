@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 
 from odoo import models, fields,exceptions, api,_
+from lxml import etree
 #
 #
 
@@ -9,12 +10,12 @@ class dietfacts_res_users(models.Model):
     _inherit = 'res.users'
 
 
-    def name_get(self):
-        result = []
-        for rec in self:
-            name = str(rec.id) + '-' + rec.name
-            result.append((rec.id, name))
-        return result
+    # def name_get(self):
+    #     result = []
+    #     for rec in self:
+    #         name = str(rec.id) + '-' + rec.name
+    #         result.append((rec.id, name))
+    #     return result
 
     @api.model
     def _name_search(self, name='', args=None, operator='ilike', limit=100):
@@ -22,8 +23,11 @@ class dietfacts_res_users(models.Model):
         domain = []
         if name:
             domain = ['|', ('name', operator, name), ('id', operator, name)]
-        # picking_ids = self._search(expression.AND([domain, args]), limit=limit, access_rights_uid=name_get_uid)
+
+        # domain = ['|', '|', '|', ('name', operator, name), ('email', operator, name),
+        #           ('school_number', operator, name), ('school_type', operator, name)]
         return super(dietfacts_res_users, self).search(domain,limit=limit).name_get()
+
 
     # @api.model
     # def default_get(self, fields):
@@ -79,6 +83,7 @@ class dietfacts_res_users_meal(models.Model):
     # // exmple  Make Defulte Value in one2meny and one2one
     @api.model
     def default_get(self, fields_list):
+        print(fields_list)
         res = super(dietfacts_res_users_meal, self).default_get(fields_list)
         # vals = [(0, 0, {'item_id': 20, 'servings': 12}),
         #         (0, 0, {'item_id': 22, 'servings': 19})]
@@ -88,14 +93,45 @@ class dietfacts_res_users_meal(models.Model):
         return res
 
 
+    # // Add Field in desing file xml by code
+    # @api.model
+    # def fields_view_get(self, view_id=None, view_type='form', toolbar=False, submenu=False):
+    #
+    #     res = super(school_student, self).fields_view_get(view_id=view_id, view_type=view_type, toolbar=toolbar,
+    #                                                       submenu=submenu)
+    #
+    #     if view_type == "form":
+    #         doc = etree.XML(res['arch'])
+    #         name_field = doc.xpath("//field[@name='name']")
+    #         if name_field:
+    #             # Added one label in form view.
+    #             name_field[0].addnext(
+    #                 etree.Element('label', {'string': 'Hello this is custom label from fields_view_get method'}))
+    #
+    #         # override attribute
+    #         address_field = doc.xpath("//field[@name='school_address']")
+    #         if address_field:
+    #             address_field[0].set("string", "Hello This is School Address.")
+    #             address_field[0].set("nolabel", "0")
+    #
+    #         res['arch'] = etree.tostring(doc, encoding='unicode')
+    #
+    #     if view_type == 'tree':
+    #         doc = etree.XML(res['arch'])
+    #         school_field = doc.xpath("//field[@name='school_id']")
+    #         if school_field:
+    #             # Added one field in tree view.
+    #             school_field[0].addnext(etree.Element('field', {'string': 'Total Fees',
+    #                                                             'name': 'total_fees'}))
+    #         res['arch'] = etree.tostring(doc, encoding='unicode')
+    #     return res
+
+
     def _set_defult_notes(self):
         return " Create Notes"
 
 
-
-
     def _get_user_id_Count(self):
-
         _count = self.env['res.users.meal'].search_count([('user_id', '=', self.user_id.id)])
         self.user_id_Count_in_model=_count
 
@@ -203,15 +239,36 @@ class dietfacts_res_users_meal(models.Model):
 
         return record_id
 
-
     def action_print(self):
-        self._update_cron()
-        return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
+        date='2021-3-28'
+        ref='Journal Entry For testing1'
+        journal_id=1
+        debit_account_code=101501
+        credit_account_code=101401
+        amount=150
+        tax_account_code=101701
+        discount_account_code =110100
+        taswya_account_code = 450000
+        tax_amount = 30
+        discount_amount = 50
+        taswya_amount = 15
+        debit_or_credit_tax_dis_YN = True
+        debit_or_credit_taswya_YN = True
+
+
+
+        return self.env['account.move'].create_journal_entry(date,ref,journal_id,debit_account_code,credit_account_code,amount
+                                                             ,tax_account_code,discount_account_code,taswya_account_code
+                                                             ,tax_amount,discount_amount,taswya_amount,debit_or_credit_tax_dis_YN,debit_or_credit_taswya_YN)
+
+    # def action_print(self):
+    #     self._update_cron()
+    #     return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
 
     def action_print_excel(self):
         return self.env.ref('ditefacts.report_res_users_meal_excel').report_action(self)
 
-
+    @api.model
     def action_printxml(self):
         print('ahmed fahmy')
         return True
