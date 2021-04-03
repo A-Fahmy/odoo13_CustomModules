@@ -9,9 +9,9 @@
                     <sheet>
                         <group>
                             <field name="name"/>
-                             <field name="responsible_id"/>
+                            <field name="responsible_id"/>
                         </group>
-                         <notebook>
+                        <notebook>
                             <page string="Description">
                                 <field name="description"/>
                             </page>

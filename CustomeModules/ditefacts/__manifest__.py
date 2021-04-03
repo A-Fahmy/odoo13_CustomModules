@@ -37,9 +37,11 @@
         'wizards/upload_product_for_users_meal.xml',
         'views/res_users_meal.xml',
         'views/dietfacts_product.xml',
+         'views/dietfacts_partner.xml',
         'data/mail_template.xml',
         'wizards/create_users_meal.xml',
         'wizards/report_users_meal_bydate.xml',
+        'wizards/Report_Daily_meal.xml',
         'reports/Desing_report_users_meal_bydate.xml',
         'views/dietfacts_nutrient.xml',
         'views/view_controller_res_meal.xml',
@@ -47,6 +49,9 @@
         'reports/report_res_users_meal.xml',
         'reports/report_quotation_inherit.xml',
         'reports_Excel/report_excel.xml',
+        'reports/Desing_Report_DailyMealReport.xml',
+
+
 
     ],
     # only loaded in demonstration mode

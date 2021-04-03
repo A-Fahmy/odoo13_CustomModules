@@ -7,7 +7,8 @@ import datetime
 
 # ********************************************* start authenticate fun *****************************************************************************************
 
-url, db, username, password = 'http://localhost:8069','DB_Open_Academy','admin','admin'
+# url, db, username, password = 'http://localhost:8069','DB_Open_Academy','admin','admin'
+url, db, username, password = 'http://149.56.255.81:1110','Nour_live2021','mohamedhamdy635@gmail.com','admin'
 
 print(url, db, username, password)
 common = xmlrpc.client.ServerProxy('{}/xmlrpc/2/common'.format(url))
@@ -26,12 +27,12 @@ par_dict = {
    'date':'2021-3-28',
    'ref': 'Journal Entry For testing1',
    'journal_id': 1,
-   'debit_account_code': 101501,
-   'credit_account_code': 101401,
+   'debit_account_code': 102030103,
+   'credit_account_code': 401010001,
    'amount': amount,
-   'tax_account_code': 101701,
-   'discount_account_code': 110100,
-   'taswya_account_code': 450000,
+   'tax_account_code': 206010290,
+   'discount_account_code': 102010003,
+   'taswya_account_code': 206010001,
    'tax_amount': 30,
    'discount_amount': 50,
    'taswya_amount': 15,

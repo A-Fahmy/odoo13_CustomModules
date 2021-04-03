@@ -49,6 +49,7 @@ class dietfacts_res_users(models.Model):
 class dietfacts_res_partner(models.Model):
     _inherit = 'res.partner'
     company_type = fields.Selection(selection_add=[('code', 'Fahmy')])
+    name_ditefact = fields.Char(string="Meal Name")
 
 
 class dietfacts_sale_order(models.Model):
@@ -238,32 +239,33 @@ class dietfacts_res_users_meal(models.Model):
         print(record_id)
 
         return record_id
+    #region check_Call AccountMove
+    # def action_print(self):
+    #     date='2021-3-28'
+    #     ref='Journal Entry For testing1'
+    #     journal_id=1
+    #     debit_account_code=101501
+    #     credit_account_code=101401
+    #     amount=150
+    #     tax_account_code=101701
+    #     discount_account_code =110100
+    #     taswya_account_code = 450000
+    #     tax_amount = 30
+    #     discount_amount = 50
+    #     taswya_amount = 15
+    #     debit_or_credit_tax_dis_YN = True
+    #     debit_or_credit_taswya_YN = True
+    #
+    #
+    #
+    #     return self.env['account.move'].create_journal_entry(date,ref,journal_id,debit_account_code,credit_account_code,amount
+    #                                                          ,tax_account_code,discount_account_code,taswya_account_code
+    #                                                          ,tax_amount,discount_amount,taswya_amount,debit_or_credit_tax_dis_YN,debit_or_credit_taswya_YN)
+    #endregion
 
     def action_print(self):
-        date='2021-3-28'
-        ref='Journal Entry For testing1'
-        journal_id=1
-        debit_account_code=101501
-        credit_account_code=101401
-        amount=150
-        tax_account_code=101701
-        discount_account_code =110100
-        taswya_account_code = 450000
-        tax_amount = 30
-        discount_amount = 50
-        taswya_amount = 15
-        debit_or_credit_tax_dis_YN = True
-        debit_or_credit_taswya_YN = True
-
-
-
-        return self.env['account.move'].create_journal_entry(date,ref,journal_id,debit_account_code,credit_account_code,amount
-                                                             ,tax_account_code,discount_account_code,taswya_account_code
-                                                             ,tax_amount,discount_amount,taswya_amount,debit_or_credit_tax_dis_YN,debit_or_credit_taswya_YN)
-
-    # def action_print(self):
-    #     self._update_cron()
-    #     return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
+        self._update_cron()
+        return self.env.ref('ditefacts.report_res_users_meal').report_action(self)
 
     def action_print_excel(self):
         return self.env.ref('ditefacts.report_res_users_meal_excel').report_action(self)

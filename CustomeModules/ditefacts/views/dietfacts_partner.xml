@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <!-- Add instructor field to existing view -->
+        <record model="ir.ui.view" id="inherit_partner_form_view">
+            <field name="name">res.partner.form</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+                  <xpath expr="//field[@name='name']" position="after">
+                            <field name="name_ditefact" default_focus="1" placeholder="Name DiteFact" attrs="{'required' : [('type', '=', 'contact')]}"/>
+                  </xpath>
+            </field>
+        </record>
+</odoo>

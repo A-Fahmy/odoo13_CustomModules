@@ -11,6 +11,7 @@ from odoo.tools import DEFAULT_SERVER_DATETIME_FORMAT as DATETIME_FORMAT
 
 class res_users_meal_Report(models.AbstractModel):
     _name ='report.ditefacts.desing_report_users_meal_bydate_view'
+
     _description = 'report Res Users Meal By Date'
 
     @api.model

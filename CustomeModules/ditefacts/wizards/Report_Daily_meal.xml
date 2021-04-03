@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <odoo>
+
+        <record id="view_Daily_Meal_report_wizard" model="ir.ui.view" >
+            <field name="name">Report Daily Sales Meal</field>
+            <field name="model">wizard.daily.meal.report</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="users meal by date">
+                    <group>
+                        <field name="date_start" placeholder="date start" />
+                        <field name="date_end" placeholder="date end" />
+                        <field name="user_id" />
+                    </group>
+                    <footer>
+                        <button name="get_report" string="Get Report" type="object" class="oe_highlight"/>
+                        <button string="Cancel" special="cancel"/>
+                    </footer>
+                </form>
+            </field>
+        </record>
+        <record id="action_Daily_Meal_report" model="ir.actions.act_window">
+                <field name="name">Report Daily Sales Meal </field>
+                <field name="res_model">wizard.daily.meal.report</field>
+                <field name="view_mode">form</field>
+                <field name="target">new</field>
+        </record>
+         <menuitem id="action_Daily_Meal_report_wizard"
+                          parent="ditefacts_menu"
+                          action="action_Daily_Meal_report"/>
+</odoo>
