@@ -24,34 +24,42 @@
                               <span>User Mael Invoice Draft</span>
                             </h2>
                       </center>
-                    <div id="informations" class="row mt32 mb32">
-                        <div class="col-auto mw-100 mb-2" t-if="o.meal_date" name="meal_date">
-                            <strong>Meal Date:</strong>
-                            <p class="m-0" t-esc="date_start"/>
-                        </div>
-                        <div class="col-auto mw-100 mb-2" t-if="o.state == 'draft'" name="meal_date">
-                            <strong>meal Date Draft :</strong>
-                            <p class="m-0" t-field="o.meal_date"/>
-                        </div>
-                        <div class="col-auto mw-100 mb-2" t-if="o.notes" name="notes">
-                            <strong>Source:</strong>
-                            <p class="m-0" t-field="o.notes"/>
-                        </div>
-                        <div class="col-auto mw-100 mb-2" t-if="o.user_id.id" name="user_code">
-                            <strong>User Code:</strong>
-                            <p class="m-0" t-field="o.user_id.id"/>
-                        </div>
-                        <div class="col-auto mw-100 mb-2" t-if="o.color" name="color">
-                            <strong>color:</strong>
-                            <p class="m-0" t-field="o.color"/>
-                        </div>
-                        <div class="col-auto mw-100 mb-2" t-if="o.totalcalories" name="totalcalories">
-                            <strong>totalcalories:</strong>
-                            <p class="m-0" t-field="o.totalcalories"/>
-                        </div>
+                <div id="informations" class="row mt32 mb32">
+                    <div class="col-4">
+                        <strong>From Date:</strong>
+                        <p class="m-0" t-esc="date_start"/>
                     </div>
+                    <div class="col-4">
+                        <strong>To Date :</strong>
+                        <p class="m-0" t-esc="date_end"/>
+                    </div>
+                     <div class="col-4">
+                        <strong>User Name:</strong>
+                        <p class="m-0" t-esc="user_name"/>
+                    </div>
+                </div>
+               <div id="info_header" class="row mt32 mb32">
+                    <div class="col-6">
+                        <span style="font-size: 14px;"><strong>Meal Name:</strong>: <t t-esc="date_start"/></span>
+                         <p class="m-0" >
+                           <span style="font-size: 14px;"><strong>Meal Date:</strong>: <t t-esc="date_start"/></span>
+                         </p>
+                        <p class="m-0" >
+                           <span style="font-size: 14px;"><strong>Meal Date:</strong>: <t t-esc="date_start"/></span>
+                         </p>
+                    </div>
+                   <div class="col-6">
+                        <span style="font-size: 14px;"><strong>Meal Name:</strong>: <t t-esc="date_start"/></span>
+                         <p class="m-0" >
+                           <span style="font-size: 14px;"><strong>Meal Date:</strong>: <t t-esc="date_start"/></span>
+                         </p>
+                        <p class="m-0" >
+                           <span style="font-size: 14px;"><strong>Meal Date:</strong>: <t t-esc="date_start"/></span>
+                         </p>
+                    </div>
+               </div>
 
-<!--                    <t t-set="display_discount" t-value="any([l.discount for l in o.invoice_line_ids])"/>-->
+
 
                     <table class="table table-sm o_main_table" name="res_meal_line_table">
                         <thead>

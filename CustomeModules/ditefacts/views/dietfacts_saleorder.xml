@@ -10,6 +10,12 @@
              <xpath expr="//field[@name='payment_term_id']" position="after">
                 <field name="dietfact_id" readonly="1" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
             </xpath>
+            <xpath expr="//button[@name='action_confirm']" position="after">
+                <button name="action_confirm2" id="action_confirm2" string="Confirm2" class="btn-primary" type="object" attrs="{'invisible': [('state', 'not in', ['draft', 'sent'])]}"/>
+            </xpath>
+
+
+
 <!--                  <field name="payment_term_id" position="after">-->
 <!--                       <field name="dietfact_id" readonly="1" attrs="{'invisible': [('state', 'in', ['draft', 'sent'])]}"/>-->
 <!--                  </field>-->

@@ -32,6 +32,7 @@
                             <button name="action_send_card" type="object"  string="Send By Email" class="oe_highlight"/>
                             <button name="action_confirm" type="object" string="Confirm" states="draft" class="oe_highlight" />
                             <button name="action_done" type="object" string="done"  states="confirm" class="oe_highlight"/>
+
                             <button name="action_Create_quotation" type="object" string="Create quotation"  class="oe_highlight"/>
                             <button name="action_print" type="object" string="Print"  class="oe_highlight"/>
                             <button name="action_print_excel" type="object" string="Print Excel"  class="oe_highlight"/>
